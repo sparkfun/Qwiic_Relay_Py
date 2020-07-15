@@ -1,0 +1,9 @@
+README.md
+qwiic_relay.py
+setup.cfg
+setup.py
+sparkfun_qwiic_relay.egg-info/PKG-INFO
+sparkfun_qwiic_relay.egg-info/SOURCES.txt
+sparkfun_qwiic_relay.egg-info/dependency_links.txt
+sparkfun_qwiic_relay.egg-info/requires.txt
+sparkfun_qwiic_relay.egg-info/top_level.txt
