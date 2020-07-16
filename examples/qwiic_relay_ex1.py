@@ -44,7 +44,13 @@ import qwiic_relay
 import time
 import sys
 
-myRelays = qwiic_relay.QwiicRelay()
+
+QUAD_RELAY = 0x6D
+SINGLE_RELAY = 0x18
+QUAD_SOLID_STATE_RELAY = 0x08
+
+#Be sure to initialize your relay with the proper address.
+myRelays = qwiic_relay.QwiicRelay(QUAD_SOLID_STATE_RELAY)
 
 def runExample():
 

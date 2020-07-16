@@ -44,7 +44,12 @@ import qwiic_relay
 import time
 import sys
 
-myRelays = qwiic_relay.QwiicRelay()
+QUAD_RELAY = 0x6D
+SINGLE_RELAY = 0x18
+QUAD_SOLID_STATE_RELAY = 0x08
+
+#Be sure to initialize your relay with the proper address.
+myRelays = qwiic_relay.QwiicRelay(QUAD_SOLID_STATE_RELAY)
 
 def runExample():
 
@@ -63,12 +68,9 @@ def runExample():
     myRelays.set_slow_pwm(4, 120) #100% duty cycle
 
     #Print out our PWM values 
-    for relay_num in range(4):
-        pwm_value = myRelays.get_slow_pwm(relay_num)
-        print("PWM Value for relay ")
-        print(relay_num)
-        print(": ")
-        print(pwm_value)
+    for relayNum in range(1, 5):
+        pwmValue = myRelays.get_slow_pwm(relayNum)
+        print("PWM Value for relay " + str(relayNum) + ": " + str(pwmValue))
     #Let the slow PWM run for a while
     time.sleep(15)
     
@@ -78,14 +80,6 @@ def runExample():
     myRelays.set_slow_pwm(2, 0)
     myRelays.set_slow_pwm(3, 0)
     myRelays.set_slow_pwm(4, 0)
-    
-        #Print out our PWM values 
-    for relay_num in range(4):
-        pwm_value = myRelays.get_slow_pwm(relay_num)
-        print("PWM Value for relay ")
-        print(relay_num)
-        print(": ")
-        print(pwm_value)
 
 if __name__ == '__main__':
     try:

@@ -98,7 +98,7 @@ RELAY_FOUR            = 4
 #define register start positions
 DUAL_QUAD_TOGGLE_BASE   = 0x00
 STATUS_BASE             = 0x04
-DUAL_QUAD_PWM_BASE      = 0x10
+DUAL_QUAD_PWM_BASE      = 0x0F
 TURN_ALL_OFF        = 0x0A
 TURN_ALL_ON     = 0x0B
 TOGGLE_ALL      = 0x0C
@@ -161,17 +161,7 @@ class QwiicRelay(object):
             :rtype: bool
 
         """
-        if qwiic_i2c.isDeviceConnected(self.address):
-            return True
-        else:
-            for i in range(0, len(_AVAILABLE_I2C_ADDRESSES) - 1):
-                if qwiic_i2c.isDeviceConnected(self.available_addresses[i]) is True:
-                    self.address = self.available_addresses[i]
-                    return True
-        
-        return False
-            
-
+        return qwiic_i2c.isDeviceConnected(self.address)
 
     connected = property(is_connected)
 
@@ -199,7 +189,7 @@ class QwiicRelay(object):
     #
     # Turn's on a specific relay number, if we're using a single relay, do not pass in a relay number.
     
-    def set_relay_on(self, relayNum):
+    def set_relay_on(self, relayNum=None):
         """
             Turn's on a relay,if we're using a single relay, do not pass in a relay number
 
@@ -284,7 +274,11 @@ class QwiicRelay(object):
             :return: successful I2C transaction
             :rtype: bool
         """
-        return self._i2c.writeByte(self.address, DUAL_QUAD_PWM_BASE + relayNum - 1, pwmValue)
+        for i in range(4):
+            if self.address == self.available_addresses[i]:
+                print ("Slow PWM does not work for the mechanical relays")
+                return False
+        return self._i2c.writeByte(self.address, DUAL_QUAD_PWM_BASE + relayNum, pwmValue)
         
     #----------------------------------------------------------------
     # get_slow_pwm(relayNum)
@@ -299,6 +293,10 @@ class QwiicRelay(object):
             :return: The value of the PWM signal, a value between 0 and 120
             :rtype: bool
         """
+        for i in range(4):
+            if self.address == self.available_addresses[i]:
+                print ("Slow PWM does not work for the mechanical relays")
+                return False
         return self._i2c.readByte(self.address, DUAL_QUAD_PWM_BASE + relayNum)
     
     #----------------------------------------------------------------

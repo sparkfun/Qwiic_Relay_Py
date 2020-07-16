@@ -5,13 +5,13 @@ Qwiic_Relay_Py
    <img src="https://www.python.org/static/community_logos/python-logo-master-v3-TM.png"  width=240>   
 </p>
 <p align="center">
-	<a href="https://pypi.org/project/sparkfun-top-phat-button/" alt="Package">
-		<img src="https://img.shields.io/pypi/pyversions/sparkfun-top-phat-button.svg" /></a>
-	<a href="https://github.com/sparkfun/Top_pHAT_Button_Py/issues" alt="Issues">
-		<img src="https://img.shields.io/github/issues/sparkfun/Top_pHAT_Button_Py.svg" /></a>
-	<a href="https://sparkfun-top-phat-button.readthedocs.io/en/latest/?" alt="Documentation">
-		<img src="https://readthedocs.org/projects/sparkfun-top-phat-button/badge/?version=latest&style=flat" /></a>
-	<a href="https://github.com/sparkfun/Top_pHAT_Button_Py/blob/master/LICENSE" alt="License">
+	<a href="https://pypi.org/project/sparkfun-qwiic-relay/" alt="Package">
+		<img src="https://img.shields.io/pypi/pyversions/sparkfun-qwiic-relay.svg" /></a>
+	<a href="https://github.com/sparkfun/Qwiic_Relay_Py/issues" alt="Issues">
+		<img src="https://img.shields.io/github/issues/sparkfun/Qwiic_Relay_Py.svg" /></a>
+	<a href="https://sparkfun-qwiic-relay.readthedocs.io/en/latest/?" alt="Documentation">
+		<img src="https://readthedocs.org/projects/sparkfun-qwiic-relay/badge/?version=latest&style=flat" /></a>
+	<a href="https://github.com/sparkfun/Qwiic_Relay_Py/blob/master/LICENSE" alt="License">
 		<img src="https://img.shields.io/badge/license-MIT-blue.svg" /></a>
 	<a href="https://twitter.com/intent/follow?screen_name=sparkfun">
         	<img src="https://img.shields.io/twitter/follow/sparkfun.svg?style=social&logo=twitter"
@@ -19,7 +19,7 @@ Qwiic_Relay_Py
 	
 </p>
 
-<img src="https://cdn.sparkfun.com/assets/parts/1/5/0/0/3/16301-SparkFun_Top_pHAT_for_Raspberry_Pi-01.jpg"  align="right" width=300 alt="SparkFun Top pHAT">
+<img src="https://cdn.sparkfun.com/assets/parts/1/5/7/5/4/16833-SparkFun_Qwiic_Quad_Solid_State_Relay_Kit-01.jpg"  align="right" width=300 alt="SparkFun Qwiic Solid State Relay">
 
 Python module for the Qwiic Relays, Listed below
 * [SparkFun Qwiic Single Relay](https://www.sparkfun.com/products/15093)
@@ -93,57 +93,49 @@ See the examples directory for more detailed use examples.
 
 ```python
 from __future__ import print_function
-import top_phat_button
+import qwiic_relay
 import time
 import sys
 
-myButtons = top_phat_button.ToppHATButton()
+myRelays = qwiic_relay.QwiicRelay()
 
 def runExample():
 
-    print("\nSparkFun Top pHAT Button  Example 1\n")
+    print("\nSparkFun Qwiic Relay Example 1\n")
 
-    if myButtons.is_connected() == False:
-        print("The Top pHAT Button device isn't connected to the system. Please check your connection", \
+    if myRelays.begin() == False:
+        print("The Qwiic Relay isn't connected to the system. Please check your connection", \
             file=sys.stderr)
         return
     
-    myButtons.pressed_interrupt_enable = False
-    myButtons.clicked_interrupt_enable = False
+    #Turn on relays one and three
+    myRelays.set_relay_on(1)
+    myRelays.set_relay_on(3)
+    time.sleep(1)
     
-    while True:
-        myButtons.button_pressed #These functions must be called to update button variables to their latest setting
-        myButtons.button_clicked #These functions must be called to update button variables to their latest setting  
-        if myButtons.a_pressed == True:
-            print("A Pressed")
-        if myButtons.a_clicked == True:
-            print("A Released")
-        if myButtons.b_pressed == True:
-            print("B Pressed")
-        if myButtons.b_clicked == True:
-            print("B Released")
-        if myButtons.up_pressed == True:
-            print("Up Pressed")
-        if myButtons.up_clicked == True:
-            print("Up Released")
-        if myButtons.down_pressed == True:
-            print("Down Pressed")
-        if myButtons.down_clicked == True:
-            print("Down Released")
-        if myButtons.left_pressed == True:
-            print("Left Pressed")
-        if myButtons.left_clicked == True:
-            print("Left Released")
-        if myButtons.right_pressed == True:
-            print("Right Pressed")
-        if myButtons.right_clicked == True:
-            print("Right Released")
-        if myButtons.center_pressed == True:
-            print("Center Pressed")
-        if myButtons.center_clicked == True:
-            print("Center Released")
+    #Print the status of all relays
+    for relayNum in range(4):
+        current_status = None
+        if myRelays.get_relay_state(relayNum) is True:
+            current_status = "On"
+        else:
+            current_status = "Off"
+        print("Status 1: " + current_status + "\n")
     
-        time.sleep(.1)
+    #Turn off 1 and 3, turn on 2 and 4
+    myRelays.set_relay_off(1)
+    myRelays.set_relay_on(2)
+    myRelays.set_relay_off(3)
+    myRelays.set_relay_on(4)
+    time.sleep(1)
+    
+
+    #Turn all relays on, then turn them all off
+    myRelays.set_all_relays_on()
+    time.sleep(1)
+    
+    myRelays.set_all_relays_off()
+    
 
 
 if __name__ == '__main__':
@@ -152,7 +144,6 @@ if __name__ == '__main__':
     except (KeyboardInterrupt, SystemExit) as exErr:
         print("\nEnding Example 1")
         sys.exit(0)
-
 ```
 <p align="center">
 <img src="https://cdn.sparkfun.com/assets/custom_pages/3/3/4/dark-logo-red-flame.png" alt="SparkFun - Start Something">
