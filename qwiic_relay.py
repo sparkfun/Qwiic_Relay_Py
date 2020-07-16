@@ -45,11 +45,11 @@
 """
 qwiic_relay
 ===============
-Python module for the <a href="https://www.sparkfun.com/products/15093">SparkFun Qwiic Single Relay</a>, <a href="https://www.sparkfun.com/products/15102">SparkFun Qwiic Quad Relay</a>, <a href="https://www.sparkfun.com/products/16810">SparkFun Qwiic Dual Solid State Relay</a>, <a href="https://www.sparkfun.com/products/16796">SparkFun Qwiic Quad Solid State Relay</a>
+Python module for the 1SparkFun Qwiic Single Relay <https://www.sparkfun.com/products/15093>`_, `SparkFun Qwiic Quad Relay <https://www.sparkfun.com/products/15102>`_, `SparkFun Qwiic Dual Solid State Relay <https://www.sparkfun.com/products/16810>`_, `SparkFun Qwiic Quad Solid State Relay <https://www.sparkfun.com/products/16796>`_
 
-This package can be used in conjunction with the overall <a href="https://github.com/sparkfun/Qwiic_Py">SparkFun qwiic Python Package</a>
+This package can be used in conjunction with the overall `SparkFun qwiic Python Package <https://github.com/sparkfun/Qwiic_Py>`_
 
-New to qwiic? Take a look at the entire <a href="https://www.sparkfun.com/qwiic">SparkFun qwiic ecosystem</a>.
+New to qwiic? Take a look at the entire `SparkFun qwiic ecosystem <https://www.sparkfun.com/qwiic>`_.
 
 """
 #-----------------------------------------------------------------------------
