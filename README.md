@@ -24,7 +24,6 @@ Qwiic_Relay_Py
 Python module for the Qwiic Relays, Listed below
 * [SparkFun Qwiic Single Relay](https://www.sparkfun.com/products/15093)
 * [SparkFun Qwiic Quad Relay](https://www.sparkfun.com/products/15102)
-* [SparkFun Qwiic Dual Solid State Relay](https://www.sparkfun.com/products/16810)
 * [SparkFun Qwiic Quad Solid State Relay](https://www.sparkfun.com/products/16796)
 
 This package can be used in conjunction with the overall [SparkFun qwiic Python Package](https://github.com/sparkfun/Qwiic_Py)
