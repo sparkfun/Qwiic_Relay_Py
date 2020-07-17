@@ -7,8 +7,8 @@
 #
 # Written by  SparkFun Electronics, July 2020
 # 
-# This python library supports the SparkFun Electroncis qwiic 
-# qwiic sensor/board ecosystem on a Raspberry Pi (and compatable) single
+# This python library supports the SparkFun Electronics qwiic 
+# qwiic sensor/board ecosystem on a Raspberry Pi (and compatible) single
 # board computers. 
 #
 # More information on qwiic is at https://www.sparkfun.com/qwiic

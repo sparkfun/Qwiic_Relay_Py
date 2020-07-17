@@ -9,7 +9,7 @@
 #
 # Written by  SparkFun Electronics, July 2019
 #
-# This python library supports the SparkFun Electroncis qwiic
+# This python library supports the SparkFun Electronics qwiic
 # qwiic sensor/board ecosystem
 #
 # More information on qwiic is at https:// www.sparkfun.com/qwiic
@@ -37,7 +37,7 @@
 # SOFTWARE.
 #==================================================================================
 #
-# This is mostly a port of existing Arduino functionaly, so pylint is sad.
+# This is mostly a port of existing Arduino functionality, so pylint is sad.
 # The goal is to keep the public interface pthonic, but internal is internal
 #
 # pylint: disable=line-too-long, bad-whitespace, invalid-name
@@ -59,10 +59,10 @@ from enum import Enum
 
 import qwiic_i2c
 
-# Define the device name and I2C addresses. These are set in the class defintion
-# as class variables, making them avilable without having to create a class instance.
-# This allows higher level logic to rapidly create a index of qwiic devices at
-# runtine
+# Define the device name and I2C addresses. These are set in the class definition
+# as class variables, making them available without having to create a class instance.
+# This allows higher level logic to rapidly create an index of qwiic devices at
+# runtime
 #
 # The name of this device
 _DEFAULT_NAME = "SparkFun Qwiic Relay"
@@ -155,7 +155,7 @@ class QwiicRelay(object):
 
     def is_connected(self):
         """
-            Determine if the Qwiic Relay is connected to the system..
+            Determine if the Qwiic Relay is connected to the system.
 
             :return: True if the device is connected, otherwise False.
             :rtype: bool
@@ -174,7 +174,7 @@ class QwiicRelay(object):
         """
             Initialize the operation of the relay
 
-            :return: Returns true of the initializtion was successful, otherwise False.
+            :return: Returns true of the initialization was successful, otherwise False.
             :rtype: bool
 
         """

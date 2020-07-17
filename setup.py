@@ -4,8 +4,8 @@
 #
 # Written by  SparkFun Electronics, May 2019
 # 
-# This python library supports the SparkFun Electroncis qwiic 
-# ecosystem, providing an plaform indepenant interface to the 
+# This python library supports the SparkFun Electronics qwiic 
+# ecosystem, providing a platform independent interface to the 
 # I2C bus. 
 #
 # More information on qwiic is at https://www.sparkfun.com/qwiic
