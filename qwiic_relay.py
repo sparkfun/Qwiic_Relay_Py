@@ -312,12 +312,12 @@ class QwiicRelay(object):
         """
         
         if relayNum is None:
-            return self._i2c.readByte(self.address, SINGLE_STATUS)
+            relayNum = 1
+        
+        if self._i2c.readByte(self.address, STATUS_BASE + relayNum) is STATUS_OFF:
+            return False
         else:
-            if self._i2c.readByte(self.address, STATUS_BASE + relayNum) is STATUS_OFF:
-                return False
-            else:
-                return True
+            return True
 
     #----------------------------------------------------------------
     # get_version()
