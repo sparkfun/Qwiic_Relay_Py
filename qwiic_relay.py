@@ -55,7 +55,6 @@ New to qwiic? Take a look at the entire `SparkFun qwiic ecosystem <https://www.s
 #-----------------------------------------------------------------------------
 
 from __future__ import print_function
-from enum import Enum
 
 import qwiic_i2c
 
@@ -70,10 +69,10 @@ _DEFAULT_NAME = "SparkFun Qwiic Relay"
 # Some devices have multiple available addresses - this is a list of these addresses.
 # NOTE: The first address in this list is considered the default I2C address for the
 # device.
-SINGLE_RELAY_DEFUALT_ADDR      = 0x18
-SINGLE_RELAY_JUMPER_CLOSE_ADDR = 0x19
-QUAD_RELAY_DEFUALT_ADDR      = 0x6D
-QUAD_RELAY_JUMPER_CLOSE_ADDR = 0x6C
+SINGLE_RELAY_DEFUALT_ADDR                = 0x18
+SINGLE_RELAY_JUMPER_CLOSE_ADDR           = 0x19
+QUAD_RELAY_DEFUALT_ADDR                  = 0x6D
+QUAD_RELAY_JUMPER_CLOSE_ADDR             = 0x6C
 DUAL_SOLID_STATE_RELAY_DEFUALT_ADDR      = 0x0A
 DUAL_SOLID_STATE_RELAY_JUMPER_CLOSE_ADDR = 0x0B
 QUAD_SOLID_STATE_RELAY_DEFUALT_ADDR      = 0x08
@@ -90,26 +89,27 @@ _AVAILABLE_I2C_ADDRESSES = [
     QUAD_SOLID_STATE_RELAY_JUMPER_CLOSE_ADDR]
 
 # Define the register offsets of each relay
-RELAY_ONE             = 1
-RELAY_TWO             = 2
-RELAY_THREE           = 3
-RELAY_FOUR            = 4
+RELAY_ONE   = 1
+RELAY_TWO   = 2
+RELAY_THREE = 3
+RELAY_FOUR  = 4
 
-#define register start positions
-DUAL_QUAD_TOGGLE_BASE   = 0x00
-STATUS_BASE             = 0x04
-DUAL_QUAD_PWM_BASE      = 0x0F
-TURN_ALL_OFF        = 0x0A
-TURN_ALL_ON     = 0x0B
-TOGGLE_ALL      = 0x0C
+# Define register start positions
+DUAL_QUAD_TOGGLE_BASE = 0x00
+STATUS_BASE           = 0x04
+DUAL_QUAD_PWM_BASE    = 0x0F
+TURN_ALL_OFF          = 0x0A
+TURN_ALL_ON           = 0x0B
+TOGGLE_ALL            = 0x0C
 
-SINGLE_OFF = 0x00
-SINGLE_ON = 0x01
+# Special values for single relay
+SINGLE_OFF              = 0x00
+SINGLE_ON               = 0x01
 SINGLE_FIRMWARE_VERSION = 0x04
-SINGLE_STATUS = 0x05
+SINGLE_STATUS           = 0x05
 
 # Define the value of an "Off" relay
-STATUS_OFF      = 0
+STATUS_OFF = 0
 
 # define the class that encapsulates the device being created. All information associated with this
 # device is encapsulated by this class. The device class should be the only value exported
@@ -183,7 +183,6 @@ class QwiicRelay(object):
 
         return self.is_connected()
     
-
     #----------------------------------------------------------------
     # set_relay_on(relayNum)
     #
@@ -313,16 +312,13 @@ class QwiicRelay(object):
         """
         
         if relayNum is None:
-            return self._i2c.readByte(self.address, SINGLE_STATUS)
+            relayNum = 1
+        
+        if self._i2c.readByte(self.address, STATUS_BASE + relayNum) is STATUS_OFF:
+            return False
         else:
-            if self._i2c.readByte(self.address, STATUS_BASE + relayNum) is STATUS_OFF:
-                return False
-            else:
-                return True
+            return True
 
-            
-
-    
     #----------------------------------------------------------------
     # get_version()
     #
