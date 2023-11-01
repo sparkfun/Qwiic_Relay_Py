@@ -1,22 +1,22 @@
 #!/usr/bin/env python
 #-----------------------------------------------------------------------------
-# top_phat_button_ex2.py
+# qwiic_relay_ex2_dual.py
 #
-# Example that shows how to set and get the slow PWM value
+# Example that shows the basics of using the dual relays.
 #------------------------------------------------------------------------
 #
-# Written by  SparkFun Electronics, April 2020
+# Written by SparkFun Electronics, November 2023
 # 
-# This python library supports the SparkFun Electronics qwiic 
-# qwiic sensor/board ecosystem on a Raspberry Pi (and compatible) single
-# board computers. 
+# This python library supports the SparkFun Electronics Qwiic sensor/board
+# ecosystem on Python compatible devices, such as the Raspberry Pi, MicroPython
+# and CircuitPython enabled microcontrollers, etc.
 #
 # More information on qwiic is at https://www.sparkfun.com/qwiic
 #
 # Do you like this library? Help support SparkFun. Buy a board!
 #
 #==================================================================================
-# Copyright (c) 2019 SparkFun Electronics
+# Copyright (c) 2023 SparkFun Electronics
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy 
 # of this software and associated documentation files (the "Software"), to deal 
@@ -36,54 +36,74 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
 # SOFTWARE.
 #==================================================================================
-# Example 2
-#
+# Example 2 - Dual
 
 from __future__ import print_function
 import qwiic_relay
 import time
 import sys
 
-QUAD_RELAY = 0x6D
-SINGLE_RELAY = 0x18
-QUAD_SOLID_STATE_RELAY = 0x08
-
-#Be sure to initialize your relay with the proper address.
-myRelays = qwiic_relay.QwiicRelay(QUAD_SOLID_STATE_RELAY)
+# Be sure to initialize your relay with the proper address.
+myRelays = qwiic_relay.QwiicRelay(qwiic_relay.DUAL_SOLID_STATE_RELAY_DEFUALT_ADDR)
+# myRelays = qwiic_relay.QwiicRelay(qwiic_relay.DUAL_SOLID_STATE_RELAY_JUMPER_CLOSE_ADDR)
 
 def runExample():
 
-    print("\nSparkFun Qwiic Relay Example 2\n")
+    print("\nSparkFun Qwiic Relay Example 2 - Dual\n")
 
     if myRelays.begin() == False:
         print("The Qwiic Relay isn't connected to the system. Please check your connection", \
             file=sys.stderr)
         return
     
-    #Note that our range is 0-120 for setting a PWM value as there are only 120 times where the zero crossing relay can switch in one second
+    # Turn on relay one
+    myRelays.set_relay_on(1)
 
-    myRelays.set_slow_pwm(1, 30) #25% duty cycle
-    myRelays.set_slow_pwm(2, 60) #50% duty cycle
-    myRelays.set_slow_pwm(3, 90) #75% duty cycle
-    myRelays.set_slow_pwm(4, 120) #100% duty cycle
+    # Print the status of all relays
+    print("Relay 1 state: " + str(myRelays.get_relay_state(1)))
+    print("Relay 2 state: " + str(myRelays.get_relay_state(2)))
+    print()
 
-    #Print out our PWM values 
-    for relayNum in range(1, 5):
-        pwmValue = myRelays.get_slow_pwm(relayNum)
-        print("PWM Value for relay " + str(relayNum) + ": " + str(pwmValue))
-    #Let the slow PWM run for a while
-    time.sleep(15)
+    # Wait a moment
+    time.sleep(1)
+
+    # Turn on relay two
+    myRelays.set_relay_on(2)
+
+    # Print the status of all relays
+    print("Relay 1 state: " + str(myRelays.get_relay_state(1)))
+    print("Relay 2 state: " + str(myRelays.get_relay_state(2)))
+    print()
+
+    # Wait a moment
+    time.sleep(1)
     
+    # Turn off relay one
+    myRelays.set_relay_off(1)
+
+    # Print the status of all relays
+    print("Relay 1 state: " + str(myRelays.get_relay_state(1)))
+    print("Relay 2 state: " + str(myRelays.get_relay_state(2)))
+    print()
+
+    # Wait a moment
+    time.sleep(1)
     
-    #Set all relays off 
-    myRelays.set_slow_pwm(1, 0)
-    myRelays.set_slow_pwm(2, 0)
-    myRelays.set_slow_pwm(3, 0)
-    myRelays.set_slow_pwm(4, 0)
+    # Turn off relay two
+    myRelays.set_relay_off(2)
+
+    # Print the status of all relays
+    print("Relay 1 state: " + str(myRelays.get_relay_state(1)))
+    print("Relay 2 state: " + str(myRelays.get_relay_state(2)))
+    print()
+
+    # Wait a moment
+    time.sleep(1)
+    
 
 if __name__ == '__main__':
     try:
         runExample()
     except (KeyboardInterrupt, SystemExit) as exErr:
-        print("\nEnding Example 1")
+        print("\nEnding Example 2")
         sys.exit(0)
