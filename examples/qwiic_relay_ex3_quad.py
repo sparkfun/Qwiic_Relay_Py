@@ -38,7 +38,6 @@
 #==================================================================================
 # Example 3 - Quad
 
-from __future__ import print_function
 import qwiic_relay
 import time
 import sys

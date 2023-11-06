@@ -54,8 +54,6 @@ New to qwiic? Take a look at the entire `SparkFun qwiic ecosystem <https://www.s
 """
 #-----------------------------------------------------------------------------
 
-from __future__ import print_function
-
 import qwiic_i2c
 
 # Define the device name and I2C addresses. These are set in the class definition

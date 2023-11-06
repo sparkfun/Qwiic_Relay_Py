@@ -38,7 +38,6 @@
 #==================================================================================
 # Example 4 - PWM
 
-from __future__ import print_function
 import qwiic_relay
 import time
 import sys

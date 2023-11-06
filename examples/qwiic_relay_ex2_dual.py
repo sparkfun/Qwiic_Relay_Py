@@ -38,7 +38,6 @@
 #==================================================================================
 # Example 2 - Dual
 
-from __future__ import print_function
 import qwiic_relay
 import time
 import sys
