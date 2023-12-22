@@ -132,7 +132,10 @@ class QwiicRelay(object):
     def __init__(self, address=None, i2c_driver=None):
 
         # Did the user specify an I2C address?
-        self.address = address if address is not None else self.available_addresses[0]
+        if address in self.available_addresses:
+            self.address = address
+        else:
+            self.address = self.available_addresses[0]
         
         # Set which register map we'll use here
         
@@ -159,7 +162,7 @@ class QwiicRelay(object):
             :rtype: bool
 
         """
-        return qwiic_i2c.isDeviceConnected(self.address)
+        return self._i2c.isDeviceConnected(self.address)
 
     connected = property(is_connected)
 
