@@ -86,6 +86,10 @@ _AVAILABLE_I2C_ADDRESSES = [
     QUAD_SOLID_STATE_RELAY_DEFUALT_ADDR,
     QUAD_SOLID_STATE_RELAY_JUMPER_CLOSE_ADDR]
 
+# Define commands for changing i2c address to
+SINGLE_CHANGE_ADDRESS = 0x03
+QUAD_CHANGE_ADDRESS   = 0xC7
+
 # Define the register offsets of each relay
 RELAY_ONE   = 1
 RELAY_TWO   = 2
@@ -209,6 +213,23 @@ class QwiicRelay(object):
     # set_relay_off(relayNum)
     #
     # Turn's off a specific relay number, if we're using a single relay, do not pass in a relay number.
+
+    def change_address(self, newAddress, singleRelay=True):
+        """
+            Change the I2C address of the relay
+
+            :param: The new address to change to
+            :param: If we're changing the address of a single or quad relay
+        """
+        if (newAddress < 0x07) or (newAddress > 0x78):
+            return
+        
+        if singleRelay:
+            return self._i2c.writeByte(self.address, SINGLE_CHANGE_ADDRESS, newAddress)
+        else:
+            return self._i2c.writeByte(self.address, QUAD_CHANGE_ADDRESS, newAddress)
+
+        self.address = newAddress
     
     def set_relay_off(self, relayNum=None):
         """
